@@ -68,8 +68,26 @@ public class GroupedTaskFixture {
     public GroupedTaskFixture assertOutputContains(String... text) {
         String output = getOutput();
         for (String s : text) {
-            assert output.contains(s);
+            if (!output.contains(s)) {
+                assert output.contains(s) : "Expected output to contain '" + s + "' but was '" + output + "'";
+                throw new GradleComparisonFailure(s, output);
+            }
         }
         return this;
+    }
+
+    public boolean outputContains(String... text) {
+        String output = getOutput();
+        for (String s : text) {
+            if (!output.contains(s)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return taskName + " " + taskOutcome;
     }
 }

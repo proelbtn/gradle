@@ -407,4 +407,75 @@ Hello, World!
         then:
         noExceptionThrown()
     }
+
+    def "sample test"() {
+        def consoleOutput = """> Task :example1
+Line 1
+Line 2
+Line 3
+> Task :example2
+Line a
+Line b
+Line c
+"""
+
+        when:
+        GroupedOutputFixture groupedOutput = new GroupedOutputFixture(LogContent.of(consoleOutput))
+
+        then:
+
+        assert groupedOutput.task(':example1').outputContains("Line 4") : "only custom message"
+        //groupedOutput.task(':example1').outputContains("Line 4")
+
+        // no works
+        /*
+        assert isFalse() : "should not be here"
+
+        def d = new Undumpable()
+        assert d.isFalse() : "d is false because i say so"
+
+        def sc = new SimpleChecker(groupedOutput)
+        assert sc.doCheck() : 'Cusomt maeesage'
+
+        assert doCheck(groupedOutput) : 'TOm custom mesage'
+        */
+    }
+
+    private static class Undumpable {
+        private turtle = "ah"
+
+        String dump() {
+            return 'Cant dump me'
+        }
+
+        boolean isFalse() {
+            return Math.random() == "seventeen"
+        }
+
+        @Override
+        String toString() {
+            return "hidden"
+        }
+    }
+
+    private boolean isFalse() {
+        return Math.random() == "seventeen"
+    }
+
+    private boolean doCheck(GroupedOutputFixture groupedOutput) {
+        def result = groupedOutput.task(':example1').outputContains("Line b")
+        return result
+    }
+
+    private class SimpleChecker {
+        private GroupedOutputFixture groupedOutput
+
+        SimpleChecker(GroupedOutputFixture groupedOutput) {
+            this.groupedOutput = groupedOutput
+        }
+
+        def doCheck() {
+            return false
+        }
+    }
 }

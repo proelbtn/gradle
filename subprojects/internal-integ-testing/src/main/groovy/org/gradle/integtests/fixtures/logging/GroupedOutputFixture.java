@@ -126,8 +126,9 @@ public class GroupedOutputFixture {
         return strippedOutput;
     }
 
+    @Override
     public String toString() {
-        return originalOutput.withNormalizedEol();
+        return this.getClass().getName();
     }
 
     private void consumeTaskOutput(Matcher matcher) {

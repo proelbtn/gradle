@@ -94,7 +94,7 @@ import static com.google.common.base.Preconditions.checkState;
  * </pre>
  */
 @CacheableTask
-public class JavaCompile extends AbstractCompile implements HasCompileOptions {
+public abstract class JavaCompile extends AbstractCompile implements HasCompileOptions {
     private final CompileOptions compileOptions;
     private final FileCollection stableSources = getProject().files((Callable<FileTree>) this::getSource);
     private final ModularitySpec modularity;
@@ -343,12 +343,12 @@ public class JavaCompile extends AbstractCompile implements HasCompileOptions {
                 spec.setRelease(compileOptions.getRelease().get());
             } else {
                 boolean isSourceOrTargetConfigured = false;
-                if (super.getSourceCompatibility() != null) {
-                    spec.setSourceCompatibility(getSourceCompatibility());
+                if (getSourceCompatibility().isPresent()) {
+                    spec.setSourceCompatibility(getSourceCompatibility().get());
                     isSourceOrTargetConfigured = true;
                 }
-                if (super.getTargetCompatibility() != null) {
-                    spec.setTargetCompatibility(getTargetCompatibility());
+                if (getTargetCompatibility().isPresent()) {
+                    spec.setTargetCompatibility(getTargetCompatibility().get());
                     isSourceOrTargetConfigured = true;
                 }
                 if (!isSourceOrTargetConfigured) {
@@ -365,8 +365,8 @@ public class JavaCompile extends AbstractCompile implements HasCompileOptions {
         } else if (compileOptions.getRelease().isPresent()) {
             spec.setRelease(compileOptions.getRelease().get());
         } else {
-            spec.setTargetCompatibility(getTargetCompatibility());
-            spec.setSourceCompatibility(getSourceCompatibility());
+            spec.setTargetCompatibility(getTargetCompatibility().getOrNull());
+            spec.setSourceCompatibility(getSourceCompatibility().getOrNull());
         }
         spec.setCompileOptions(compileOptions);
     }

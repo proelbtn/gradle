@@ -278,8 +278,8 @@ public class Foo {
                 doLast {
                     logger.lifecycle("project.sourceCompatibility = \$projectSourceCompat")
                     logger.lifecycle("project.targetCompatibility = \$projectTargetCompat")
-                    logger.lifecycle("task.sourceCompatibility = \$sourceCompatibility")
-                    logger.lifecycle("task.targetCompatibility = \$targetCompatibility")
+                    logger.lifecycle("task.sourceCompatibility = \${sourceCompatibility.get()}")
+                    logger.lifecycle("task.targetCompatibility = \${targetCompatibility.get()}")
                 }
             }
 """
@@ -318,8 +318,8 @@ public class Foo {
                 doLast {
                     logger.lifecycle("project.sourceCompatibility = \$projectSourceCompat")
                     logger.lifecycle("project.targetCompatibility = \$projectTargetCompat")
-                    logger.lifecycle("task.sourceCompatibility = \$sourceCompatibility")
-                    logger.lifecycle("task.targetCompatibility = \$targetCompatibility")
+                    logger.lifecycle("task.sourceCompatibility = \${sourceCompatibility.get()}")
+                    logger.lifecycle("task.targetCompatibility = \${targetCompatibility.get()}")
                 }
             }
 """

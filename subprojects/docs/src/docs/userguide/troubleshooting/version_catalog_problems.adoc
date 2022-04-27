@@ -169,7 +169,8 @@ The solution is to call whichever version method is appropriate.
 
 This error indicates that an import statement (e.g. link:{javadocPath}/org/gradle/api/initialization/dsl/VersionCatalogBuilder.html#from-java.lang.Object-[from(Object notation)]) was called more than once.
 
-A version catalog can only be imported from a single source. To prevent the import of multiple sources, some methods will throw an exception when called more than once.
+A version catalog can only be imported from a single source.
+To prevent the import of multiple sources, some methods will throw an exception when called more than once.
 
 A simple example could be the following, which triggers the error when building a version catalog:
 ```kotlin

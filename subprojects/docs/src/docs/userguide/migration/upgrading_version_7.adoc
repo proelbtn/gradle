@@ -38,6 +38,12 @@ Some plugins will break with this new version of Gradle, for example because the
 
 === Potential breaking changes
 
+==== Version catalog only accepts a single TOML import file
+
+Only a single file will be accepted when using a `from` import method.
+We advise users with this use case to use a code-based version catalog.
+See the link:https://github.com/gradle/gradle-20388-multiple-toml[proposed workaround] and the link:https://github.com/gradle/gradle/issues/20383[related discussion].
+
 ==== Updates to default tool integration versions
 
 - Checkstyle has been updated to https://checkstyle.sourceforge.io/releasenotes.html#Release_8.45.1[Checkstyle 8.45.1].
